@@ -22,6 +22,12 @@ ef = EfficientFrontier(mu, S)
 fig, ax = plt.subplots()
 plot_efficient_frontier(ef, ax=ax, show_assets=False)
 
+n_samples = 10000
+w = np.random.dirichlet(np.ones(len(mu)), n_samples)
+rets = w.dot(mu)
+stds = np.sqrt((w.T * (S @ w.T)).sum(axis=0))
+sharpes = rets / stds
+
 ef = EfficientFrontier(expected_returns, covariances)
 ef.max_sharpe()
 ret_tangent, std_tangent, _ = ef.portfolio_performance()
@@ -31,6 +37,7 @@ for ticker, weight in weights.items():
     print(ticker, weight)
 
 ax.scatter(std_tangent, ret_tangent, marker="*", s=100, c="r", label="Max Sharpe")
+ax.scatter(stds, rets, marker=".", c=sharpes, cmap="viridis_r")
 ax.set_title("Efficient Frontier with random portfolios")
 ax.legend()
 plt.tight_layout()
