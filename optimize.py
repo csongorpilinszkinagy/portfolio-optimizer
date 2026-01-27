@@ -30,6 +30,7 @@ weights = ef.clean_weights()
 for ticker, weight in weights.items():
     print(ticker, weight)
 
+ax.scatter(std_tangent, ret_tangent, marker="*", s=100, c="r", label="Max Sharpe")
 ax.set_title("Efficient Frontier with random portfolios")
 ax.legend()
 plt.tight_layout()
