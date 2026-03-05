@@ -16,6 +16,13 @@ hu_prices["HUFUSD=X"] = hu_prices["HUFUSD=X"].ffill()
 
 for ticker in hu_tickers:
     hu_prices[ticker] = hu_prices[ticker] * hu_prices["HUFUSD=X"]
+hu_prices = hu_prices[hu_tickers]
 
-prices = pd.concat([us_prices, hu_prices[hu_tickers]], axis=1, sort=False).sort_index()
-prices.to_csv("data/prices.csv")
+us_prices = us_prices.dropna(how="all")
+hu_prices = hu_prices.dropna(how="all")
+
+us_prices.to_csv("data/us_prices.csv")
+hu_prices.to_csv("data/hu_prices.csv")
+
+all_prices = pd.concat([us_prices, hu_prices], axis=1, sort=False).sort_index()
+all_prices.to_csv("data/all_prices.csv")
