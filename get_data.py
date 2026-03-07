@@ -1,8 +1,8 @@
 import pandas as pd
 import yfinance as yf
 
-us_expect = pd.read_csv("data/us_expect.csv")
-hu_expect = pd.read_csv("data/hu_expect.csv")
+us_expect = pd.read_csv("data/exp_returns_us.csv")
+hu_expect = pd.read_csv("data/exp_returns_hu.csv")
 
 us_tickers = us_expect["ticker"].to_list()
 hu_tickers = hu_expect["ticker"].to_list()
@@ -21,8 +21,5 @@ hu_prices = hu_prices[hu_tickers]
 us_prices = us_prices.dropna(how="all")
 hu_prices = hu_prices.dropna(how="all")
 
-us_prices.to_csv("data/us_prices.csv")
-hu_prices.to_csv("data/hu_prices.csv")
-
-all_prices = pd.concat([us_prices, hu_prices], axis=1, sort=False).sort_index()
-all_prices.to_csv("data/all_prices.csv")
+prices = pd.concat([us_prices, hu_prices], axis=1, sort=False).sort_index()
+prices.to_csv("data/prices.csv")
