@@ -48,13 +48,13 @@ margin_return = 0.6
 
 leverage = (margin_return - risk_free_rate) / (ret_tangent - risk_free_rate)
 margin_vol = round(leverage * std_tangent, 2)
-print(f"Expected annual return on margin: {margin_return*100}%")
-print(f"Annual volatility on margin: {margin_vol*100}%")
-print(f"Leverage: {round(leverage, 2)}")
 margin_weights = {k: round(v * leverage, 2) for k, v in sharpe_weights.items()}
 df = pd.DataFrame(list(margin_weights.items()), columns=["ticker", "weight"])
 df.to_csv(f"data/weights_margin.csv", index=False)
 
+print(f"Expected annual return on margin: {margin_return*100}%")
+print(f"Annual volatility on margin: {margin_vol*100}%")
+print(f"Leverage: {round(leverage, 2)}")
 
 ax.scatter(std_tangent, ret_tangent, marker="*", s=100, color="red", label="Max Sharpe", zorder=2)
 ax.scatter(margin_vol, margin_return, marker="o", s=100, color="green", label="Margin return", zorder=2)
