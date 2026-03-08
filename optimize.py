@@ -33,7 +33,7 @@ rets = w.dot(mu)
 stds = np.sqrt((w.T * (S @ w.T)).sum(axis=0))
 sharpes = rets / stds
 
-ef = EfficientFrontier(mu, S)
+ef = EfficientFrontier(mu, S, weight_bounds=(0,0.2))
 ef.max_sharpe(risk_free_rate)
 ret_tangent, std_tangent, _ = ef.portfolio_performance(risk_free_rate=risk_free_rate, verbose=True)
 sharpe_ratio = (ret_tangent - risk_free_rate) / std_tangent
